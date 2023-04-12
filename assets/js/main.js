@@ -1,5 +1,5 @@
 $(document)
-.on("submit" ,"form.js-register" ,"form.js-login",function(event) {
+.on("submit" ,"form.js-register" ,"form.js-login", function(event) {
     event.preventDefault();
 
         var _form = $(this) ;
@@ -29,19 +29,27 @@ $(document)
 
         $.ajax({
             type :'POST' ,
-            url : '/' ,
+            url : 'ajax/register.php' ,
             data :dataObj ,
             dataType : 'json' ,
             async :true ,
         })
 
+        .done(function ajaxDone(data){
+            console.log(data) ;
+            // whatever data is 
+            if(data.redirect !== undefined) {
+                window.location = data.redirect;
 
-
-
-        
-        
-
-    
+            } 
+            alert(data.name)
+        })
+        .fail(function ajaxFailed(e){
+            //This failed
+        }) 
+        .always(function ajaxAlwaysDoThis(data){
+            console.log('Always');
+        })
 
     return false ;
 })
