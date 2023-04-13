@@ -6,8 +6,8 @@ $(document)
         var _error = $(".js-error" ,_form) ;
 
         var dataObj = {
-               email:$("input[type='email']" , _form).val() ,
-            password: $("input[type='password']" , _form).val()
+               email: $("input[type ='email']" , _form).val() ,
+            password: $("input[type ='password']" , _form).val() 
         } ;
 
         if(dataObj.email.length < 6) {
@@ -36,13 +36,18 @@ $(document)
         })
 
         .done(function ajaxDone(data){
-            console.log(data) ;
+           
             // whatever data is 
             if(data.redirect !== undefined) {
                 window.location = data.redirect;
-
             } 
-            alert(data.name)
+            else if(data.error !== undefined) {
+                _error
+                .html(data.error)
+                .text(data.error)
+                .show
+            }
+           
         })
         .fail(function ajaxFailed(e){
             //This failed
